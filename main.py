@@ -1,7 +1,6 @@
 # IMPORTING LIBRARIES
 
 
-import time
 import streamlit as st
 import pandas as pd
 from fpdf import FPDF
@@ -727,7 +726,6 @@ st.divider()
 
 
 
-time.sleep(2)
 
 st.markdown("##### 6. Feeding frequency")
 
