@@ -176,7 +176,7 @@ def generate_pdf():
     pdf.set_font("Arial", size=9)
 
     data = [
-        ["RER (in kcal/day)", str(a)],
+        ["RER (in kcal/day)", str(round( a, 2))],
     ]
 
     for row in data:
