@@ -1,0 +1,13 @@
+[theme]
+
+primaryColor = '#057880'
+
+backgroundColor = '#B2EBED'
+
+secondaryBackgroundColor = '#66D6DB'
+
+textColor = '#000000'
+
+[ui]
+
+hideTopBar = true
