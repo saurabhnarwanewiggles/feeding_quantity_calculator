@@ -406,7 +406,7 @@ def generate_pdf():
 
     pdf.set_font("Arial", style="I", size=10)
 
-    pdf.cell(page_width, -25, txt="Click here to check again.", ln=True, align="C", link="https://feedingquantitycalculator.streamlit.app/")
+    pdf.cell(page_width, -25, txt="Click here to check again.", ln=True, align="C", link="https://wiggles-feedingquantitycalculator.streamlit.app/")
 
 
     # OUTPUT -------------------------------------------------------------------------------
