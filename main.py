@@ -111,7 +111,7 @@ def generate_pdf():
         ["Body weight (in kgs)", str(pet_weight)],
         ["Gender", str(pet_gender)],
         ["Breed", str(pet_breed)],
-        ["Activity level", str(pet_activity)],
+        ["BCS (Body Condition Score)", str(pet_activity)],
         ["Age (in years)", str(pet_age)]
     ]
 
@@ -306,7 +306,7 @@ def generate_pdf():
     pdf.set_font("Arial", size=9)
 
     data = [
-        ["Expected daily fluid volume per day (in ml)", str(i)]
+        ["Required daily fluid volume per day (in ml)", str(round( i, 2))]
     ]
 
     for row in data:
@@ -341,9 +341,9 @@ def generate_pdf():
     pdf.set_font("Arial", size=9)
 
     data = [
-        ["For day 1, (in ml/meal)", str(m_day_1)],
-        ["For day 2, (in ml/meal)", str(m_day_2)],
-        ["For day 3, (in ml/meal)", str(m_day_3)]
+        ["For day 1, (in ml/meal)", str(round( m_day_1, 2))],
+        ["For day 2, (in ml/meal)", str(round( m_day_2, 2))],
+        ["For day 3, (in ml/meal)", str(round( m_day_3, 2))]
     ]
 
     for row in data:
@@ -377,9 +377,9 @@ def generate_pdf():
     pdf.set_font("Arial", size=9)
 
     data = [
-        ["For day 1, (in ml)", str(r_day_1)],
-        ["For day 2, (in ml)", str(r_day_2)],
-        ["For day 3, (in ml)", str(r_day_3)]
+        ["For day 1, (in ml)", str(round( r_day_1, 2))],
+        ["For day 2, (in ml)", str(round( r_day_2, 2))],
+        ["For day 3, (in ml)", str(round( r_day_3, 2))]
     ]
 
     for row in data:
@@ -406,7 +406,7 @@ def generate_pdf():
 
     pdf.set_font("Arial", style="I", size=10)
 
-    pdf.cell(page_width, -25, txt="Click here to check again.", ln=True, align="C", link="www.google.in")
+    pdf.cell(page_width, -25, txt="Click here to check again.", ln=True, align="C", link="https://feedingquantitycalculator.streamlit.app/")
 
 
     # OUTPUT -------------------------------------------------------------------------------
@@ -524,7 +524,7 @@ pet_breed = st.text_input(f"###### ⚫ What is the pet's breed?")
 
 gap()
 
-pet_activity = st.slider("###### ⚫ What is the pet's activity? (1 - Slightly Active, 5 - Highly Active)", min_value = 1, max_value = 5, value = 1)
+pet_activity = st.slider("###### ⚫ What is the pet's BCS (Body Condition Score)? (1 - Extremely Underweight, 9 - Extremely Obese)", min_value = 1, max_value = 9, value = 1)
 
 gap()
 
@@ -606,7 +606,7 @@ elif pet_type == "Cat":
 
     a = 70 * (pet_weight ** 0.67)
 
-st.write(f" - The RER for the pet is <font size='5'>{a}</font> kcal/day.", unsafe_allow_html = True)
+st.write(f" - The RER for the pet is <font size='5'>{round( a, 2)}</font> kcal/day.", unsafe_allow_html = True)
 
 st.divider()
 
@@ -642,31 +642,33 @@ gap()
 
 e = c / ( b + d )
 
-st.write(f" - The caloric density of fluid is <font size='5'>{e}</font> kcal/ml.", unsafe_allow_html = True)
+# st.write(f" - The caloric density of fluid is <font size='5'>{e}</font> kcal/ml.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
-f_percentage = st.number_input("###### ⚫ What is the moisture content in Cocotail Rx? (in %)", value = 70, placeholder = "Type the number in %...")
+f_percentage = 70
 
-gap()
+# f_percentage = st.number_input("###### ⚫ What is the moisture content in Cocotail Rx? (in %)", value = 70, placeholder = "Type the number in %...")
+
+# gap()
 
 g = ( b * f_percentage) / 100
 
-st.write(f" - Therefore, the total water content in Cocotail Rx is <font size='5'>{g}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - Therefore, the total water content in Cocotail Rx is <font size='5'>{g}</font> ml.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
 f_hash = ( g + d ) * 100 / ( b + d )
 
-st.write(f" - And thus, moisture content after, if <font size='5'>{d}</font> ml warm water added is <font size='5'>{f_hash} %</font>.", unsafe_allow_html = True)
+# st.write(f" - And thus, moisture content after, if <font size='5'>{d}</font> ml warm water added is <font size='5'>{f_hash} %</font>.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
 h = 100 - g
 
-st.write(f" - And the total solid content in Cocotail Rx / Moist Food is <font size='5'>{h}</font> gram/s.", unsafe_allow_html = True)
+# st.write(f" - And the total solid content in Cocotail Rx / Moist Food is <font size='5'>{h}</font> gram/s.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
 methods = ("Bolus Feeding", "Constant Rate Infusion", "Other")
 
@@ -696,23 +698,23 @@ st.markdown("##### 5. Water requirement")
 
 gap()
 
-st.write(f" - Water content in Cocotail Rx is <font size='5'>{g}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - Water content in Cocotail Rx is <font size='5'>{g}</font> ml.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
-st.write(f" - Additional water added to the blend is <font size='5'>{d}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - Additional water added to the blend is <font size='5'>{d}</font> ml.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
 i = 60 * pet_weight
 
-st.write(f" - Expected daily fluid volume per day is <font size='5'>{i}</font> ml.", unsafe_allow_html = True)
+st.write(f" - Required daily fluid volume per day is <font size='5'>{round( i, 2)}</font> ml.", unsafe_allow_html = True)
 
 gap()
 
 j = g + d
 
-st.write(f" - And, total water coming from Cocotail Rx / Moist Food is <font size='5'>{j}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - And, total water coming from Cocotail Rx / Moist Food is <font size='5'>{j}</font> ml.", unsafe_allow_html = True)
 
 st.divider()
 
@@ -731,9 +733,9 @@ st.markdown("##### 6. Feeding frequency")
 
 gap()
 
-st.write("##### 6.1 Initial feeding rate.")
+# st.write("##### 6.1 Initial feeding rate.")
 
-gap()
+# gap()
 
 k_day_1 = ( 30 * a ) / 100
 
@@ -741,17 +743,17 @@ k_day_2 = ( 50 * a ) / 100
 
 k_day_3 = ( 100 * a ) / 100
 
-st.write(f" - For day 1, the daily caloric intake goal per day is <font size='5'>{k_day_1}</font> kcal.", unsafe_allow_html = True)
+# st.write(f" - For day 1, the daily caloric intake goal per day is <font size='5'>{k_day_1}</font> kcal.", unsafe_allow_html = True)
 
-st.write(f" - For day 2, the daily caloric intake goal per day is <font size='5'>{k_day_2}</font> kcal.", unsafe_allow_html = True)
+# st.write(f" - For day 2, the daily caloric intake goal per day is <font size='5'>{k_day_2}</font> kcal.", unsafe_allow_html = True)
 
-st.write(f" - For day 3, the daily caloric intake goal per day is <font size='5'>{k_day_3}</font> kcal.", unsafe_allow_html = True)
+# st.write(f" - For day 3, the daily caloric intake goal per day is <font size='5'>{k_day_3}</font> kcal.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
-st.write("##### 6.2 Daily feeding volume.")
+# st.write("##### 6.2 Daily feeding volume.")
 
-gap()
+# gap()
 
 l_day_1 = k_day_1 / e
 
@@ -759,15 +761,15 @@ l_day_2 = k_day_2 / e
 
 l_day_3 = k_day_3 / e
 
-st.write(f" - For day 1, the daily feeding volume is <font size='5'>{l_day_1}</font> kcal.", unsafe_allow_html = True)
+# st.write(f" - For day 1, the daily feeding volume is <font size='5'>{l_day_1}</font> kcal.", unsafe_allow_html = True)
 
-st.write(f" - For day 2, the daily feeding volume is <font size='5'>{l_day_2}</font> kcal.", unsafe_allow_html = True)
+# st.write(f" - For day 2, the daily feeding volume is <font size='5'>{l_day_2}</font> kcal.", unsafe_allow_html = True)
 
-st.write(f" - For day 3, the daily feeding volume is <font size='5'>{l_day_3}</font> kcal.", unsafe_allow_html = True)
+# st.write(f" - For day 3, the daily feeding volume is <font size='5'>{l_day_3}</font> kcal.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
-st.write("##### 6.3 Feeding Frequency")
+# st.write("##### 6.3 Feeding Frequency")
 
 st.write("For Dogs: 4 meals/day (Every 6 hr)")
 
@@ -787,11 +789,11 @@ m_day_2 = l_day_2 / m
 
 m_day_3 = l_day_3 / m
 
-st.write(f" - For day 1, it is <font size='5'>{m_day_1}</font> ml/meal.", unsafe_allow_html = True)
+st.write(f" - For day 1, it is <font size='5'>{round( m_day_1, 2)}</font> ml/meal.", unsafe_allow_html = True)
 
-st.write(f" - For day 2, it is <font size='5'>{m_day_2}</font> ml/meal.", unsafe_allow_html = True)
+st.write(f" - For day 2, it is <font size='5'>{round( m_day_2, 2)}</font> ml/meal.", unsafe_allow_html = True)
 
-st.write(f" - For day 3, it is <font size='5'>{m_day_3}</font> ml/meal.", unsafe_allow_html = True)
+st.write(f" - For day 3, it is <font size='5'>{round( m_day_3, 2)}</font> ml/meal.", unsafe_allow_html = True)
 
 st.divider()
 
@@ -803,13 +805,13 @@ gap()
 
 o = n * m
 
-st.write(f" - Therefore, the total water used in flushing is <font size='5'>{o}</font> ml", unsafe_allow_html = True)
+# st.write(f" - Therefore, the total water used in flushing is <font size='5'>{o}</font> ml", unsafe_allow_html = True)
 
 st.divider()
 
-gap()
+# gap()
 
-st.write("##### 6.4 Total water from food.")
+# st.write("##### 6.4 Total water from food.")
 
 p_day_1 = ( l_day_1 * f_hash ) / 100
 
@@ -817,15 +819,15 @@ p_day_2 = ( l_day_2 * f_hash ) / 100
 
 p_day_3 = ( l_day_3 * f_hash ) / 100
 
-st.write(f" - For day 1, it is <font size='5'>{p_day_1}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - For day 1, it is <font size='5'>{p_day_1}</font> ml.", unsafe_allow_html = True)
 
-st.write(f" - For day 2, it is <font size='5'>{p_day_2}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - For day 2, it is <font size='5'>{p_day_2}</font> ml.", unsafe_allow_html = True)
 
-st.write(f" - For day 3, it is <font size='5'>{p_day_3}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - For day 3, it is <font size='5'>{p_day_3}</font> ml.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
-st.write("##### 6.5 Total water from food and flushing.")
+# st.write("##### 6.5 Total water from food and flushing.")
 
 q_day_1 = o + p_day_1
 
@@ -833,13 +835,13 @@ q_day_2 = o + p_day_2
 
 q_day_3 = o + p_day_3
 
-st.write(f" - For day 1, it is <font size='5'>{q_day_1}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - For day 1, it is <font size='5'>{q_day_1}</font> ml.", unsafe_allow_html = True)
 
-st.write(f" - For day 2, it is <font size='5'>{q_day_2}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - For day 2, it is <font size='5'>{q_day_2}</font> ml.", unsafe_allow_html = True)
 
-st.write(f" - For day 3, it is <font size='5'>{q_day_3}</font> ml.", unsafe_allow_html = True)
+# st.write(f" - For day 3, it is <font size='5'>{q_day_3}</font> ml.", unsafe_allow_html = True)
 
-gap()
+# gap()
 
 st.write("##### 7. Additional water requirement (To meet daily fluid volume)")
 
@@ -849,11 +851,11 @@ r_day_2 = i - q_day_2
 
 r_day_3 = i - q_day_3
 
-st.write(f" - For day 1, it is <font size='5'>{r_day_1}</font> ml.", unsafe_allow_html = True)
+st.write(f" - For day 1, it is <font size='5'>{round( r_day_1, 2)}</font> ml.", unsafe_allow_html = True)
 
-st.write(f" - For day 2, it is <font size='5'>{r_day_2}</font> ml.", unsafe_allow_html = True)
+st.write(f" - For day 2, it is <font size='5'>{round( r_day_2, 2)}</font> ml.", unsafe_allow_html = True)
 
-st.write(f" - For day 3, it is <font size='5'>{r_day_3}</font> ml.", unsafe_allow_html = True)
+st.write(f" - For day 3, it is <font size='5'>{round( r_day_3, 2)}</font> ml.", unsafe_allow_html = True)
 
 st.divider()
 
